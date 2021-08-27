@@ -1,0 +1,19 @@
+Crear la ruta de insertar
+
+
+1. Insertar link en la pagina deseada <a th:href="@{/agregar}">Crear Persona</a>, que nos redirige al formulario
+
+2. Mapearlo en el la clase controlador:
+	-agregar anotacion GetMapping a una nueva glase @GetMapping("/agregar")
+	-se recibe algumento de tipo Entidad en la clase agregar(Persona persona)
+	-Spring buscara elementos iguales en la base de datos, si no se encuentran 		agrega el nuevo elemento
+	-acemos return redirigiendo a la pagina correspondiente (return "modificar")
+
+3. Se crea la pagina html en la carpeta de templates. Dentro de la etiqueta de apertura de <html>, vamos a agregar xmlns:th="http://www.thymeleaf.org" (xml name space thymeleaf) para  poder hacer uso de thymeleaf en esta pagina. (Si aparece un warning podemos agregar otro elemento a la etiqueta, xmlns="http://www.w3.org/1999/xhtml", esto ultimo nos obliga a que cada etiqueta que tengamo en nuestro documento debe cerrarse '/>')
+
+
+4. Agregamos etiquetas de formulario y dentro de la etiqueta de apertura agregamos th:action="@{/guardar}" method=POST th:object="${persona}", este ultimo lo utilizamos pra compartir el objeto que esta relacionado con este formulario
+
+5. los input del formulario deben estar relacionados con los atributos del objeto compartido desde el controlador, en el etiqueta input debemos agregar,           th:field="*{nombreAtributo}"
+
+6. Agregamos en el controlador el metodo encargado de insertar regisros, este metodo debe tene la anotacion @PostMapping("/guardar") y recibir como argumento el objeto entidad(persona), dentro de este metodo con ayuda del objeto entidadService(personaService), solicitamos el metodo guardar y enviamos el objeto entidad(persona) como parametro. finalmente hacemos return (return "redirect:/") para ir a la pagina de inicio

@@ -1,0 +1,20 @@
+Delete con Spring
+
+(Manera #1)
+
+1. Agregamos el campo delete en cada uno de los registros                               <a th:href="@{/eliminar/} + ${persona.idPersona}"
+
+2. En el controlador agregamos el metodo eliminar con la anotacion de                    @GetMapping("/eliminar/idPersona"), dentro de este metodo con ayuda del objeto personaService llamamos el metodo eliminar y enviamos como parametro el argumento tipo persona de recibimos en el metodo eliminar del controladr
+
+3. Hacemos return "redirect:/" para regrgesar a la pagina principal
+
+
+(Manera #2)
+Query Param
+
+1. Agregamos el campo delete en cada uno de los registros                               <a th:href="@{/eliminar(idPersona=${persona.idPersona})}"
+
+2. En el controlador cambiamos el path que se recibe en la anotacion GetMapping
+@GetMapping("/eliminar"), en este caso no recibimos el id ya que viene con el parametro de persona
+
+3. Igual que (Manera #1)

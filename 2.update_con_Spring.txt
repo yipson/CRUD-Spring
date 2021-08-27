@@ -1,0 +1,13 @@
+Actualizar un registro
+
+1. En la tabla del listado de registros, agregamos un nuevo campo para acceder a la opcion de editar y eliminar de cada registro.
+sera un <a y dentro de la etiqueta de apertura contendra
+th:href="@{/editar/}" + ${persona.idPersona}, en la primera parte tenemos el path que nos redirige al controlador editar e incluimos al final un slash ya que vamos a concatenar un pathvariable que corresponde al id del registro seleccionado
+
+2. En el controlador agregamos un metodo con la anotacion de                          @GetMapping("/editar/{idPersona}"), esta ultima variable sera el id que se envia como parametro desde el listado de personas y en el controlador se asociara directamente con el objeto que se recive como argumento en este metodo de                         editar(Persona persona, Model model), este ultimo argumento se recibe para poderla compartir para la siguiente peticion
+
+3. Dentro de este metodo y con ayuda del atributo personaService, llamamos el metodo encontrarPersona y enviamos como parametro el argumento persona que ya tiene asocuado un id, esta solicutud la guardamos en una variable que va a ser la misma que tenemos como argumento(persona)
+
+4. Compartimos el objeto por medio de la varibale model,                  model.addAttribute("persona", persona), luego hacemos return "modificar", y se abrira el formulario con los inputs llenos con los datos del registro seleccionado
+
+5. En el formulario agregamos un labe type="hidden" th:field="*{idPersona}" y de esta forma cuando guardemos los cambios se enviaran al controlado guardar, pero al tener el campo de id con algun valor en vez de ser null hara un update en vez de un insert
